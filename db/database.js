@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-
+/// conntect with database
 async function main() {
     await mongoose.connect(
         'mongodb://localhost/testBot', { useUnifiedTopology: true, useNewUrlParser: true })
@@ -9,6 +9,7 @@ async function main() {
 
 main()
 
+/// model movie schema
 const movieSchema = {
     name: String,
     genre: String,
@@ -19,6 +20,7 @@ const movieSchema = {
 
 const Movie = mongoose.model("movie", movieSchema);
 
+/// creat 7 movies 
 const defaultMovies = [
     new Movie({
         name: "The Intern",
@@ -77,6 +79,8 @@ const defaultMovies = [
         discription: "Just as Detective McClane lands in LA to spend Christmas with his wife, he learns about a hostage situation in an office building. Hans Gruber is the culprit and McClane's wife is one of the hostages."
     })
 ]
+
+/// insert default movies into database
 
 Movie.find({}, async function(err, foundMovies) {
     if (foundMovies < 7) {

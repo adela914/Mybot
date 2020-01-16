@@ -1,11 +1,11 @@
 const { SlackDialog } = require('botbuilder-adapter-slack');
 const mongoose = require('mongoose')
-const Movie = require('../db/mongoose')
+const Movie = require('../db/database')
 
 
 module.exports = function(controller) {
 
-    controller.hears(['Hi', 'Hello'], 'message,direct_message', async(bot, message) => {
+    controller.hears(['Hi', 'Hello', 'Hey'], 'message,direct_message', async(bot, message) => {
         const content = {
             "blocks": [{
                     "type": "section",
@@ -49,7 +49,7 @@ module.exports = function(controller) {
     controller.on('block_actions', async(bot, message) => {
 
         const userChoice = message.incoming_message.channelData.actions[0].value
-        if (userChoice === 'choice1') {
+        if (userChoice === "choice1") {
 
             const content = {
                 "blocks": [{
@@ -155,6 +155,14 @@ module.exports = function(controller) {
     controller.hears(['Bye', 'Good bye'], 'message,direct_message', async(bot, message) => {
         await bot.say('See you soon ❤️')
 
+    })
+
+
+    controller.hears(['Day', 'Date'], 'message,direct_message', async(bot, message) => {
+
+        var utc = await new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+
+        await bot.say(`Today is ${utc}`)
     })
 
 

@@ -1,14 +1,15 @@
 const { Botkit } = require('botkit');
 const { BotkitCMSHelper } = require('botkit-plugin-cms');
 const { SlackAdapter, SlackMessageTypeMiddleware, SlackEventMiddleware } = require('botbuilder-adapter-slack');
+let request = require('request');
 
 
 require('dotenv').config();
-require("./db/mongoose");
+require("./db/database");
 
 
 
-
+/// configuration
 
 const adapter = new SlackAdapter({
 
